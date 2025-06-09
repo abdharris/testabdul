@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\CategoryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,3 +31,11 @@ Route::get('/master-items/delete/{id}', [App\Http\Controllers\MasterItemsControl
 
 
 Route::get('/master-items/update-random-data', [App\Http\Controllers\MasterItemsController::class, 'updateRandomData']);
+
+Route::prefix('categories')->group(function () {
+    Route::get('/', [CategoryController::class, 'index'])->name('categories.index');
+    Route::get('/view/{id}', [CategoryController::class, 'show'])->name('categories.show');
+    Route::get('/form/{method}/{id?}', [CategoryController::class, 'formView'])->name('categories.form');
+    Route::post('/form/{method}/{id?}', [CategoryController::class, 'formSubmit'])->name('categories.submit');
+    Route::get('/delete/{id}', [CategoryController::class, 'delete'])->name('categories.delete');
+});
